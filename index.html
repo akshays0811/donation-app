@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Donation Form</title>
+</head>
+<body>
+  <h2>Donate Now</h2>
+  <form id="donationForm">
+    <input placeholder="Reference Name" id="refName" required><br>
+    <input placeholder="Donor Name" id="donorName" required><br>
+    <input placeholder="Mobile Number" id="mobile" required><br>
+    <input type="number" placeholder="Amount (INR)" id="amount" required><br>
+    <button type="submit">Pay & Log</button>
+  </form>
+
+  <script>
+    document.getElementById("donationForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const refName = document.getElementById("refName").value;
+      const donorName = document.getElementById("donorName").value;
+      const mobile = document.getElementById("mobile").value;
+      const amount = document.getElementById("amount").value;
+
+      const upiID = "yourupiid@bank"; // Replace with your actual UPI ID
+      const upiLink = `upi://pay?pa=${upiID}&pn=${donorName}&am=${amount}&cu=INR`;
+
+      window.open(upiLink, "_blank");
+
+      fetch("https://your-railway-app-url/handle-donation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ refName, donorName, mobile, amount })
+      });
+    });
+  </script>
+</body>
+</html>
