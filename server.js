@@ -56,6 +56,14 @@ app.post("/handle-donation", async (req, res) => {
 });
 
 const PORT = 3000;
+
+const path = require("path");
+app.use(express.static(path.join(__dirname, ".")));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
